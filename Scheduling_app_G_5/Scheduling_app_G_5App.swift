@@ -10,13 +10,15 @@ import Firebase
 
 @main
 struct Scheduling_app_G_5App: App {
+    
     init(){
         FirebaseApp.configure()
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            TestUserAuth()
         }
     }
 }
