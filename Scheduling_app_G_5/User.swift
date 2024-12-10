@@ -7,14 +7,12 @@
 
 import Foundation
 
-struct User{
+class User{
     let userName:String
     let password:String
     
-    func isLogedIn(){
-        
-    }
-    func isVerified(){
-        
+    init(userName:String, password:String) {
+        self.password = password
+        self.userName = userName
     }
 }
