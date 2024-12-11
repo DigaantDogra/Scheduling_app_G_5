@@ -14,7 +14,6 @@ struct HomePage: View {
         NavigationStack {
             
             VStack {
-                Text("Scheduling App")
                 // Main content view based on the selected tab
                 if selectedTab == 0 {
                     //Content for user home screen
@@ -32,7 +31,8 @@ struct HomePage: View {
                         .font(.largeTitle)
                         .foregroundColor(.purple)
                 }
-            }
+            }.navigationTitle("Schedule App")
+                .foregroundColor(.purple)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing){
                     Image(systemName: "person.circle.fill")
