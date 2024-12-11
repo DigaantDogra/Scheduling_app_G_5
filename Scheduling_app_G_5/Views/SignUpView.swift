@@ -26,7 +26,7 @@
                             .foregroundColor(.green)
                             .padding(.bottom, 40)
                         
-                        NavigationLink(destination: ContentView(), isActive: $navigateToContentView) {
+                        NavigationLink(destination: LandingPage(), isActive: $navigateToContentView) {
                             EmptyView() // Invisible, just controls navigation
                         }
                         

@@ -5,6 +5,7 @@
 //  Created by Digaant Dogra on 2024-10-31.
 //
 
+import Foundation
 import SwiftUI
 import Firebase
 
@@ -18,7 +19,7 @@ struct Scheduling_app_G_5App: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            ContentView()
+            LandingPage()
         }
     }
 }
