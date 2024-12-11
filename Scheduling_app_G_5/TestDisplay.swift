@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct TestDisplay: View {
+    @EnvironmentObject var vm:TestViewModel
     var body: some View {
-        Text("Test Display")
+        NavigationView {
+            List(vm.companies, id: \.companyID) { company in
+                Text("\(company.companyID)")
+            }
+            .navigationTitle("Companies")
+            .navigationBarItems(trailing: Button(action: {
+                // add
+            }, label: {
+                Image(systemName: "plus")
+            }))
+        }
     }
 }
 
 #Preview {
     TestDisplay()
+        .environmentObject(TestViewModel())
 }
