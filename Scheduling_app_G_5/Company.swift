@@ -15,4 +15,10 @@ struct Company{
         self.companyName = companyName
         self.companyID = companyID
     }
+    
+    func generateID() -> Double{
+        let randomNumber = Int.random(in: 100...999)
+        return Double(randomNumber)
+    }
+    
 }

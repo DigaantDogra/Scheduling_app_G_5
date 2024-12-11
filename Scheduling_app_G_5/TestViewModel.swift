@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import CryptoKit
 
 class TestViewModel:ObservableObject{
     @Published var companies:[Company] = []
@@ -69,8 +70,25 @@ class TestViewModel:ObservableObject{
     }
 
     
-    func fetchAssociate(){
+    func fetchUser(for email:String){
         
+    }
+    
+    func addEmployer(for emp:Employer){
+        let db = Firestore.firestore()
+        let companyRef = db.collection("Company").document("Comp3")
+        
+        let ref = db.collection("Users").document(emp.email)
+        ref.setData([
+            "company":companyRef,
+            "empID":emp.empID,
+            "empName":emp.empName,
+            "password":emp.password
+        ]){error in
+            if let error = error{
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func addCompany(companyName: String){
@@ -82,5 +100,13 @@ class TestViewModel:ObservableObject{
             }
         }
     }
+    
+    
+    func hashString(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashed = SHA256.hash(data: inputData)
+        return hashed.compactMap { String(format: "%02x", $0) }.joined()
+    }
+    
     
 }

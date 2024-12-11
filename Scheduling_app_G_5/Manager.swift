@@ -10,12 +10,12 @@ import Foundation
 class Manager:User{
     var managerName:String
     private var managerID:Double
-    let companyID:Double
+    let company:Company
     
-    init(email:String, password:String, managerName: String, managerID: Double, companyID: Double) {
+    init(email:String, password:String, managerName: String, managerID: Double, company: Company) {
         self.managerName = managerName
         self.managerID = managerID
-        self.companyID = companyID
+        self.company = company
         super.init(email: email, password: password)
     }
     

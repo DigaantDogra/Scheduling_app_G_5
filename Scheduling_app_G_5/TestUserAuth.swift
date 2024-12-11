@@ -10,15 +10,23 @@ import Firebase
 import FirebaseAuth
 
 struct TestUserAuth: View {
+    let vm = TestViewModel()
     @State var email = ""
     @State var password = ""
     @State var userIsLoggedIn = false
     
     var body: some View {
-        if userIsLoggedIn{
-            TestDisplay()
-        }else{
-            content
+        Group{
+            if userIsLoggedIn{
+                content
+            }else{
+                TestDisplay()
+            }
+        }
+        .onAppear {
+            Auth.auth().addStateDidChangeListener { _, user in
+                self.userIsLoggedIn = (user != nil) // Update state based on user presence
+            }
         }
     }
     
@@ -69,15 +77,9 @@ struct TestUserAuth: View {
             }
             .padding(.horizontal,30)
             
-        }
-        .onAppear{
-            Auth.auth().addStateDidChangeListener { auth, user in
-                if user != nil{
-                    userIsLoggedIn.toggle()
-                }
-            }
             
         }
+        
     }
     
     // Functions
@@ -86,6 +88,8 @@ struct TestUserAuth: View {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil{
                 print(error!.localizedDescription)
+            }else{
+                vm.addEmployer(for: Employer(email: email, password: password, empName: "Arjun", empID: 2, company: Company(companyName: "Ok", companyID: 4)))
             }
         }
     }

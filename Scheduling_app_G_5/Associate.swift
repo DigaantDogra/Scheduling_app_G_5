@@ -10,14 +10,16 @@ import Foundation
 class Associate:User{
     var associateName:String
     private var associateID:Double
-    let companyID:Double
-    let associateSchedule:Schedule
+    let company:Company
+    let associateSchedule:[Schedule]
+    let associateAvaliability:[Avaliability]
     
-    init(email:String, password:String, associateName: String, associateID: Double, companyID: Double, associateSchedule: Schedule) {
+    init(email:String, password:String, associateName: String, associateID: Double, company: Company, associateSchedule: [Schedule], associateAvaliability:[Avaliability]) {
         self.associateName = associateName
         self.associateID = associateID
-        self.companyID = companyID
+        self.company = company
         self.associateSchedule = associateSchedule
+        self.associateAvaliability = associateAvaliability
         super.init(email: email, password: password)
     }
 }

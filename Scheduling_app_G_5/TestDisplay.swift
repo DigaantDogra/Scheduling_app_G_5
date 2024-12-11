@@ -10,17 +10,7 @@ import SwiftUI
 struct TestDisplay: View {
     @EnvironmentObject var vm:TestViewModel
     var body: some View {
-        NavigationView {
-            List(vm.employers, id: \.empID) { emp in
-                Text("\(emp.company)")
-            }
-            .navigationTitle("Employers")
-            .navigationBarItems(trailing: Button(action: {
-                // add
-            }, label: {
-                Image(systemName: "plus")
-            }))
-        }
+        Text("OK")
     }
 }
 

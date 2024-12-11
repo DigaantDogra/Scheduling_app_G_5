@@ -19,9 +19,5 @@ class Employer:User{
         super.init(email: email, password: password)
     }
     
-    func generateID() -> Double{
-        let randomNumber = Int.random(in: 100...999)
-        return Double(randomNumber)
-    }
     
 }
