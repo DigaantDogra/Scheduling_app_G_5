@@ -28,7 +28,7 @@ struct ContentView: View {
                         .font(.system(size: 40, weight: .bold, design: .rounded))
                         .padding(.bottom,20)
                     
-                    TextField("Email", text: $email)
+                    TextField("", text: $email)
                         .foregroundStyle(.white)
                         .textFieldStyle(.plain)
                         .placeholder(when: email.isEmpty){
@@ -41,7 +41,7 @@ struct ContentView: View {
                         .frame(width: 350, height: 1)
                         .foregroundColor(.white)
                     
-                    SecureField("Password", text: $password)
+                    SecureField("", text: $password)
                         .foregroundStyle(.white)
                         .textFieldStyle(.plain)
                         .placeholder(when: password.isEmpty){
@@ -70,7 +70,7 @@ struct ContentView: View {
                             .frame(width: 200, height: 40)
                             .background(
                                 RoundedRectangle(cornerRadius: 10, style: .circular)
-                                    .fill(.linearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    .fill(.linearGradient(colors: [.indigo,.purple], startPoint: .top, endPoint: .bottom))
                             )
                             .foregroundColor(.white)
                     }
