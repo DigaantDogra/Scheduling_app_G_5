@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandingPage: View {
     @State private var email: String = ""
     @State private var password: String = ""
     var body: some View {
@@ -86,7 +86,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    LandingPage()
 }
 
 extension View {
