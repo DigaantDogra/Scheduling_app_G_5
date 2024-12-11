@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftUI
+
 
 // MARK: - RoleButton
 struct RoleButton: View {
@@ -59,13 +59,23 @@ struct CustomSecureField: View {
     }
 }
 
-struct BasicButton: View {
-    var text: String
+struct BasicButton<Content: View>: View {
     let action: () -> Void
+    let content: () -> Content
+    
+    init(text: String, action: @escaping () -> Void) where Content == Text {
+        self.action = action
+        self.content = { Text(text) }
+    }
+    
+    init(action: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+        self.action = action
+        self.content = content
+    }
     
     var body: some View {
         Button(action: action) {
-            Text(text)
+            content()
                 .bold()
                 .frame(maxWidth: .infinity, minHeight: 50)
                 .background(
@@ -77,6 +87,7 @@ struct BasicButton: View {
         }
     }
 }
+
 
 
 
