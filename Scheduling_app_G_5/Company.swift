@@ -9,17 +9,10 @@ import Foundation
 
 struct Company{
     let companyName:String
-    private(set) var companyID:Double
+    private(set) var companyID:Int
     
-    private mutating func generateID(){
-        let randomNumber = Int.random(in: 100...999)
-        companyID = Double(randomNumber)
-    }
-    
-    init(companyName: String, companyID: Double) {
+    init(companyName: String, companyID:Int) {
         self.companyName = companyName
         self.companyID = companyID
-        
-        generateID()
     }
 }

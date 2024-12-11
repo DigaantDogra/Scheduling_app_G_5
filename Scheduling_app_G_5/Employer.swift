@@ -18,4 +18,10 @@ class Employer:User{
         self.company = company
         super.init(userName: username, password: password)
     }
+    
+    func generateID() -> Double{
+        let randomNumber = Int.random(in: 100...999)
+        return Double(randomNumber)
+    }
+    
 }

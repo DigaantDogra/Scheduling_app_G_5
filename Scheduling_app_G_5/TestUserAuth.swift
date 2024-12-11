@@ -12,8 +12,17 @@ import FirebaseAuth
 struct TestUserAuth: View {
     @State var email = ""
     @State var password = ""
+    @State var userIsLoggedIn = false
     
     var body: some View {
+        if userIsLoggedIn{
+            TestDisplay()
+        }else{
+            content
+        }
+    }
+    
+    var content:some View{
         VStack(alignment: .center) {
             Text("Login Test")
                 .font(.title)
@@ -59,6 +68,15 @@ struct TestUserAuth: View {
                 
             }
             .padding(.horizontal,30)
+            
+        }
+        .onAppear{
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil{
+                    userIsLoggedIn.toggle()
+                }
+            }
+            
         }
     }
     
