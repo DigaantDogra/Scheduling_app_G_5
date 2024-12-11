@@ -22,6 +22,8 @@ struct Scheduling_app_G_5App: App {
             TestUserAuth()
 //            TestDisplay()
 //                .environmentObject(vm)
+//            TestUserAuth()
+//            LandingPage()
         }
     }
 }
