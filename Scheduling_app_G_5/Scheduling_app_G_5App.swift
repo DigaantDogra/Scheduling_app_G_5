@@ -18,7 +18,7 @@ struct Scheduling_app_G_5App: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            TestUserAuth()
+            ContentView()
         }
     }
 }
