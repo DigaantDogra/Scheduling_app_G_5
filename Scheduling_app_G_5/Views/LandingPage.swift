@@ -54,15 +54,14 @@ struct LandingPage: View {
                         .frame(width: 350, height: 1)
                         .foregroundColor(.white)
                     
-                    Button("Login"){
-                        //Button Logic to go to home page here
+                    NavigationLink(destination: HomePage()){
+                        Text("Login")//use button for auth
+                        .bold()
+                        .frame(width: 200, height: 40)
+                        .background(RoundedRectangle(cornerRadius: 10, style: .circular)
+                            .fill(.linearGradient(colors: [.indigo], startPoint: .center, endPoint: .zero)))
+                        .foregroundStyle(.white)
                     }
-                    .bold()
-                    .frame(width: 200, height: 40)
-                    .background(RoundedRectangle(cornerRadius: 10, style: .circular)
-                        .fill(.linearGradient(colors: [.indigo], startPoint: .center, endPoint: .zero)))
-                    .foregroundStyle(.white)
-                    
                     
                     NavigationLink(destination: SignUpView()) {
                         Text("Sign Up")
@@ -74,6 +73,10 @@ struct LandingPage: View {
                             )
                             .foregroundColor(.white)
                     }
+                    
+                    Button("Forgot Password"){
+                        
+                    }.foregroundStyle(.white)
                     
                 }
                 .frame(width: 350)
