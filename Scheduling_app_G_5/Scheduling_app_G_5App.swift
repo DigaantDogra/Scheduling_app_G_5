@@ -10,6 +10,7 @@ import Firebase
 
 @main
 struct Scheduling_app_G_5App: App {
+    @StateObject var vm = TestViewModel()
     
     init(){
         FirebaseApp.configure()
@@ -18,7 +19,9 @@ struct Scheduling_app_G_5App: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            TestUserAuth()
+//            TestUserAuth()
+            TestDisplay()
+                .environmentObject(vm)
         }
     }
 }

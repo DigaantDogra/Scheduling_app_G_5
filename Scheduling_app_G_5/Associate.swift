@@ -13,11 +13,11 @@ class Associate:User{
     let companyID:Double
     let associateSchedule:Schedule
     
-    init(userName:String, password:String, associateName: String, associateID: Double, companyID: Double, associateSchedule: Schedule) {
+    init(email:String, password:String, associateName: String, associateID: Double, companyID: Double, associateSchedule: Schedule) {
         self.associateName = associateName
         self.associateID = associateID
         self.companyID = companyID
         self.associateSchedule = associateSchedule
-        super.init(userName: userName, password: password)
+        super.init(email: email, password: password)
     }
 }

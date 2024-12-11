@@ -7,21 +7,16 @@
 
 import Foundation
 
-struct Schedule{
+class Schedule:Day{
     let breakTime:Int = 15
-    private(set) var noOfBreaks:[Int]
-    let scheduleDays:[Day]
+    private(set) var noOfBreak:Int?
+    let isScheduled:Bool
+    let shiftHours:Int?
     
-    // Functions
-//    mutating func setMadatoryBreak(for shiftHours:Int){
-//        if(shiftHours < 5){
-//            self.noOfBreaks = 1
-//        }
-//        else{
-//            self.noOfBreaks = 2
-//        }
-//    }
-    
-    
-    
+    init(startTime: Date?, endTime: Date?, shiftHours: Int?, weekDay: WeekDays, noOfBreak: Int?, isScheduled: Bool) {
+        self.noOfBreak = noOfBreak
+        self.isScheduled = isScheduled
+        self.shiftHours = shiftHours
+        super.init(startTime: startTime, endTime: endTime, weekDay: weekDay)
+    }
 }

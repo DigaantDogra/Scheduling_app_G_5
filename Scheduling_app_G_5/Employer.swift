@@ -9,14 +9,14 @@ import Foundation
 
 class Employer:User{
     var empName:String
-    private var empID:Double
+    var empID:Int
     let company:Company
     
-    init(username:String, password:String, empName: String = "Test", empID: Double = 1000, company: Company) {
+    init(email:String, password:String, empName: String, empID: Int, company: Company) {
         self.empName = empName
         self.empID = empID
         self.company = company
-        super.init(userName: username, password: password)
+        super.init(email: email, password: password)
     }
     
     func generateID() -> Double{

@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Avaliability{
-    let avaliableHours:Int
-    let daysList:[Day]
+class Avaliability:Day{
+    let isAvaliable:Bool
+    
+    init(startTime: Date?, endTime: Date?, weekDay: WeekDays, isAvaliable: Bool) {
+        self.isAvaliable = isAvaliable
+        super.init(startTime: startTime, endTime: endTime, weekDay: weekDay)
+    }
 }

@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    let dateFormatter = DateFormatter()
+    @State var currentDateString = ""
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Formater Time :\(currentDateString)")
+            Button{
+                print()
+            }label: {
+                Text("ok")
+            }
         }
         .padding()
+        .onAppear{
+            dateFormatter.dateFormat = "hh:mm a"
+            self.currentDateString = dateFormatter.string(from: Date())
+        }
     }
 }
 

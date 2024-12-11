@@ -8,11 +8,11 @@
 import Foundation
 
 class User{
-    let userName:String
+    let email:String
     let password:String
     
-    init(userName:String, password:String) {
+    init(email:String, password:String) {
         self.password = password
-        self.userName = userName
+        self.email = email
     }
 }

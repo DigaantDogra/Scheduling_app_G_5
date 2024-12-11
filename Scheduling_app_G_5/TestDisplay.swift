@@ -11,10 +11,10 @@ struct TestDisplay: View {
     @EnvironmentObject var vm:TestViewModel
     var body: some View {
         NavigationView {
-            List(vm.companies, id: \.companyID) { company in
-                Text("\(company.companyID)")
+            List(vm.employers, id: \.empID) { emp in
+                Text("\(emp.company)")
             }
-            .navigationTitle("Companies")
+            .navigationTitle("Employers")
             .navigationBarItems(trailing: Button(action: {
                 // add
             }, label: {

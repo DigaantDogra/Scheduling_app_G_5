@@ -7,19 +7,15 @@
 
 import Foundation
 
-struct Day{
-    let startTime:Int
-    let endTime:Int
-    let shiftHours:Int
+class Day{
+    let startTime:Date?
+    let endTime:Date?
     let weekDay:WeekDays
-    let isAvaliable:Bool
     
-    init(startTime: Int, endTime: Int, shiftHours: Int, weekDay: WeekDays, isAvaliable: Bool) {
+    init(startTime: Date?, endTime: Date?, weekDay: WeekDays) {
         self.startTime = startTime
         self.endTime = endTime
-        self.shiftHours = shiftHours
         self.weekDay = weekDay
-        self.isAvaliable = isAvaliable
     }
     
 }
