@@ -20,8 +20,9 @@ struct Scheduling_app_G_5App: App {
         WindowGroup {
 //            ContentView()
 //            TestUserAuth()
-            TestDisplay()
-                .environmentObject(vm)
+//            TestDisplay()
+//                .environmentObject(vm)
+            LandingPage()
         }
     }
 }
