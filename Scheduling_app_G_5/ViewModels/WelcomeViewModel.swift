@@ -161,7 +161,7 @@ class WelcomeViewModel:ObservableObject{
                             
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "HHmm"
-                            guard let startTime = dateFormatter.date(from: `startTimeS),let endTime = dateFormatter.date(from: endTimeS) else {
+                            guard let startTime = dateFormatter.date(from: startTimeS),let endTime = dateFormatter.date(from: endTimeS) else {
                                 print("Invalid date format")
                                 return
                             }
