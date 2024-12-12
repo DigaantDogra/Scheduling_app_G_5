@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct HomePage: View {
+struct AssociatePage: View {
     @State private var selectedTab = 0 // State to track the selected tab
+    @State var associate:Associate
+    @State var vm : AssociateViewModel
 
     var body: some View {
         NavigationStack {
@@ -17,9 +19,21 @@ struct HomePage: View {
                 // Main content view based on the selected tab
                 if selectedTab == 0 {
                     //Content for user home screen
-                    Text("Home Content")
-                        .font(.largeTitle)
-                        .foregroundColor(.blue)
+                    GroupBox{
+                        HStack{
+                            Text("Upcoming Shift")
+                            Spacer()
+                            Button{
+                                
+                            }label:{
+                                Text("Details")
+                            }
+                        }
+                        
+                        Text("\(vm.latestShift())")
+                        
+                    } // Gbox
+                    .padding()
                 } else if selectedTab == 1 {
                     //Content for user calendar
                     Text("Calendar Content")
@@ -31,7 +45,7 @@ struct HomePage: View {
                         .font(.largeTitle)
                         .foregroundColor(.purple)
                 }
-            }.navigationTitle("Schedule App")
+            }.navigationTitle("Hi \(associate.associateName)")
                 .foregroundColor(.purple)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing){
@@ -94,5 +108,5 @@ struct HomePage: View {
 }
 
 #Preview {
-    HomePage()
+    AssociatePage(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)]), vm: AssociateViewModel(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)])))
 }

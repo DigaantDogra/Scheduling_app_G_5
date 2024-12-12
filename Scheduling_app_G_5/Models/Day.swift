@@ -10,12 +10,18 @@ import Foundation
 class Day{
     let startTime:Date?
     let endTime:Date?
-    let weekDay:WeekDays
+    let weekDay:WeekDays?
     
     init(startTime: Date?, endTime: Date?, weekDay: WeekDays) {
         self.startTime = startTime
         self.endTime = endTime
         self.weekDay = weekDay
+    }
+    
+    init(startTime: Date?, endTime: Date?) {
+        self.startTime = startTime
+        self.endTime = endTime
+        self.weekDay = nil
     }
     
 }

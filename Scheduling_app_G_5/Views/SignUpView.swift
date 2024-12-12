@@ -43,9 +43,9 @@
                             .padding(.bottom, 40)
                         
                         // RoleButtons
-                        RoleButton(role: .student, action: { selectedRole = .student })
-                        RoleButton(role: .professor, action: { selectedRole = .professor })
-                        RoleButton(role: .employee, action: { selectedRole = .employee })
+                        RoleButton(role: .employer, action: { selectedRole = .employer })
+                        RoleButton(role: .manager, action: { selectedRole = .manager })
+                        RoleButton(role: .associate, action: { selectedRole = .associate })
                         
                         Spacer()
                     } else {

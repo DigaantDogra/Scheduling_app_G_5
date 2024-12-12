@@ -16,7 +16,7 @@ class Employer:User{
         self.empName = empName
         self.empID = empID
         self.company = company
-        super.init(email: email, password: password)
+        super.init(email: email, password: password,userType: UserType.Employer)
     }
     
     

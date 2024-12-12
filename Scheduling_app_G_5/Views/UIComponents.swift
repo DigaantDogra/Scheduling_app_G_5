@@ -30,9 +30,9 @@ struct RoleButton: View {
 
 // Enum for user roles (if used widely, consider putting it in a separate file)
 enum UserRole: String {
-    case student = "Student"
-    case professor = "Professor"
-    case employee = "Employee"
+    case employer = "Employer"
+    case manager = "Manager"
+    case associate = "Associate"
 }
 
 // MARK: - CustomTextField
