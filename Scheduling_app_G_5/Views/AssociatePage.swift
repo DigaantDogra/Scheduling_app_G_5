@@ -87,7 +87,7 @@ struct AssociatePage: View {
                     //Calendar TAB
                     Text("Calendar Content")
                         .font(.largeTitle)
-                        .foregroundColor(.green)
+                        .foregroundColor(.indigo)
                     ReusableCalendarView(
                         selectedColor: $calendarColor,
                         selectedDate: $calendarDate,
