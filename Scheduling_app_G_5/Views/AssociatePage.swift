@@ -95,6 +95,7 @@ struct AssociatePage: View {
                     Image(systemName: "person.circle.fill")
                                                 .font(.system(size: 25))
                                                 .foregroundColor(.purple)
+                                                .padding(.top,7)
                     
                     Spacer()
                     

@@ -213,6 +213,10 @@ class WelcomeViewModel:ObservableObject{
                             let startTime = dateFormatter.date(from: startTimeS)
                             print("after starttime")
                             let endTime = dateFormatter.date(from: endTimeS)
+                            guard let startTime = dateFormatter.date(from: startTimeS),let endTime = dateFormatter.date(from: endTimeS) else {
+                                print("Invalid date format")
+                                return
+                            }
                             dateFormatter.dateFormat = "dd-MM-yyyy"
                             let workTime = dateFormatter.date(from: snapID)
                             
