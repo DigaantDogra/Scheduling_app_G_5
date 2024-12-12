@@ -9,20 +9,23 @@ import SwiftUI
 
 struct LandingPage: View {
     @State private var isUserLoggedIn = false
-    @State private var user:User?
+    @State private var associate:Associate?
+    @State private var employer:Employer?
+    @State private var manager:Manager?
     
     var body: some View {
         if isUserLoggedIn{
-            switch user!.userType {
-            case .Employer:
-                EmptyView() // Employer Page
-            case .Manager:
-                EmptyView() // Manager Page
-            case .Associate:
-                AssociatePage(associate: user as! Associate, vm: AssociateViewModel(associate: user as! Associate))
+            if employer != nil{
+                EmptyView()
+            }
+            if manager != nil{
+                EmptyView()
+            }
+            if associate != nil{
+                AssociatePage(associate: associate!, vm: AssociateViewModel(associate: associate!))
             }
         }else{
-            WelcomePage(isUserLoggedIn: $isUserLoggedIn, user: $user)
+            WelcomePage(isUserLoggedIn: $isUserLoggedIn, employer: $employer, manager: $manager, associate: $associate)
         }
     }
     

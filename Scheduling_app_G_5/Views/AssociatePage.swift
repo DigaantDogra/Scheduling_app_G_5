@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct AssociatePage: View {
     @State private var selectedTab = 0 // State to track the selected tab
     @State var associate:Associate
     @State var vm : AssociateViewModel
+    var location:CLLocationCoordinate2D{
+            CLLocationCoordinate2D(latitude: 43.4692, longitude: -79.6910)
+        }
 
     var body: some View {
         NavigationStack {
@@ -19,21 +23,60 @@ struct AssociatePage: View {
                 // Main content view based on the selected tab
                 if selectedTab == 0 {
                     //Content for user home screen
-                    GroupBox{
-                        HStack{
-                            Text("Upcoming Shift")
-                            Spacer()
-                            Button{
-                                
-                            }label:{
-                                Text("Details")
+                    ScrollView{
+                        GroupBox{
+                            HStack{
+                                Text("Upcoming Shift")
+                                Spacer()
+                                Button{
+                                    selectedTab = 1
+                                }label:{
+                                    Text("Details")
+                                }
                             }
+                            .padding(.bottom,10)
+                            HStack{
+                                Text("\(vm.latestShift())")
+                                Spacer()
+                            }
+                            
+                            Map(position: .constant(.camera(MapCamera(centerCoordinate: location, distance: 3000)))){
+                                Annotation("ok", coordinate: location) {
+                                    Image(systemName: "mappin")
+                                        .font(.largeTitle)
+                                        .imageScale(.large)
+                                        .symbolEffect(.pulse)
+                                }
+                                .annotationTitles(.hidden)
+                            }
+                            .clipShape(.rect(cornerRadius: 15))
+                            .padding()
+                            .scaledToFit()
+                            
+                        } // Gbox
+                        .padding()
+                        
+                        GroupBox{
+                            HStack {
+                                Text("Earnings Till Now")
+                                Spacer()
+                                Button{
+                                    
+                                }label:{
+                                    Text("Details")
+                                }
+                            }
+                            .padding(.bottom, 10)
+                            
+                            HStack{
+                                Text("Total Hours Worked: ")
+                                Spacer()
+                                Text("(Net earning this week)")
+                            }
+                            
                         }
-                        
-                        Text("\(vm.latestShift())")
-                        
-                    } // Gbox
-                    .padding()
+                        .padding()
+                    }
                 } else if selectedTab == 1 {
                     //Content for user calendar
                     Text("Calendar Content")

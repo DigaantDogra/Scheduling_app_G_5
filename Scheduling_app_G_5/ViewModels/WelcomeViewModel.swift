@@ -12,7 +12,7 @@ import CryptoKit
 
 class WelcomeViewModel:ObservableObject{
     
-    func login(for email: String, password: String, completion: @escaping (User?) -> Void) {
+    func loginAssociate(for email: String, password: String, completion: @escaping (Associate?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("Error signing in: \(error.localizedDescription)")
@@ -21,25 +21,7 @@ class WelcomeViewModel:ObservableObject{
             }
             
             let dispatchGroup = DispatchGroup()
-            var fetchedUser: User? = nil
-            
-            // Fetch Employer
-            dispatchGroup.enter()
-            self.getEmployer(for: email, password: password) { employer in
-                if let employer = employer {
-                    fetchedUser = employer
-                }
-                dispatchGroup.leave()
-            }
-            
-            // Fetch Manager
-            dispatchGroup.enter()
-            self.getManager(for: email, password: password) { manager in
-                if let manager = manager {
-                    fetchedUser = manager
-                }
-                dispatchGroup.leave()
-            }
+            var fetchedUser: Associate? = nil
             
             // Fetch Associate
             dispatchGroup.enter()
@@ -60,6 +42,72 @@ class WelcomeViewModel:ObservableObject{
                     completion(nil)
                 }
             }
+        }
+    }
+    
+    func loginManager(for email: String, password: String, completion: @escaping (Manager?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Error signing in: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            var fetchedUser: Manager? = nil
+            
+            // Fetch Manager
+            dispatchGroup.enter()
+            self.getManager(for: email, password: password) { manager in
+                if let manager = manager {
+                    fetchedUser = manager
+                }
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                if let user = fetchedUser {
+                    print("\(type(of: user)) fetched successfully.")
+                    completion(user)
+                } else {
+                    print("Failed to fetch manager")
+                    completion(nil)
+                }
+            }
+            
+        }
+    }
+    
+    func loginEmployer(for email: String, password: String, completion: @escaping (Employer?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Error signing in: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            var fetchedUser: Employer? = nil
+            
+            // Fetch Employer
+            dispatchGroup.enter()
+            self.getEmployer(for: email, password: password) { employer in
+                if let employer = employer {
+                    fetchedUser = employer
+                }
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                if let user = fetchedUser {
+                    print("\(type(of: user)) fetched successfully.")
+                    completion(user)
+                } else {
+                    print("Failed to fetch any employer")
+                    completion(nil)
+                }
+            }
+            
         }
     }
 
@@ -126,10 +174,8 @@ class WelcomeViewModel:ObservableObject{
                             
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "HHmm"
-                            guard let startTime = dateFormatter.date(from: startTimeA),let endTime = dateFormatter.date(from: endTimeA) else {
-                                print("Invalid date format")
-                                return
-                            }
+                            let startTime = dateFormatter.date(from: startTimeA)
+                            let endTime = dateFormatter.date(from: endTimeA)
                             
                             
                             associateAvaliability.append(Avaliability(
@@ -159,20 +205,21 @@ class WelcomeViewModel:ObservableObject{
                             let startTimeS = data["startTime"] as? String ?? ""
                             let shiftHours = data["shiftHours"] as? Int ?? 0
                             
+                            print("This is stime\(endTimeS) This is eTime:\(startTimeS) This is date:\(snapID)")
+                            
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "HHmm"
-                            guard let startTime = dateFormatter.date(from: `startTimeS),let endTime = dateFormatter.date(from: endTimeS) else {
-                                print("Invalid date format")
-                                return
-                            }
+                            print("before starttime")
+                            let startTime = dateFormatter.date(from: startTimeS)
+                            print("after starttime")
+                            let endTime = dateFormatter.date(from: endTimeS)
                             dateFormatter.dateFormat = "dd-MM-yyyy"
-                            guard let workTime = dateFormatter.date(from: snapID) else {
-                                print("Invalid date format")
-                                return
-                            }
+                            let workTime = dateFormatter.date(from: snapID)
+                            
+                            print("wher is this???\(workTime!)")
                             
                             associateSchedule.append(Schedule(
-                                workDate: workTime,
+                                workDate: workTime!,
                                 startTime: startTime,
                                 endTime: endTime,
                                 shiftHours: shiftHours,
@@ -192,6 +239,8 @@ class WelcomeViewModel:ObservableObject{
                             associateSchedule: associateSchedule,
                             associateAvaliability: associateAvaliability
                         )
+                        
+                        print(associate.associateSchedule.isEmpty)
                         completion(associate)
                     }
                 }

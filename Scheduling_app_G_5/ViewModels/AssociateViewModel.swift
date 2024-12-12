@@ -24,11 +24,16 @@ struct AssociateViewModel{
                 continue
             }else{
                 let workTime = dateFormatter.string(from: date.workDate)
+                dateFormatter.dateFormat = "EEEE"
+                let workDay = dateFormatter.string(from: date.workDate)
+                dateFormatter.dateFormat = "hh:mm a"
+                let stime = dateFormatter.string(from: date.startTime!)
+                let etime = dateFormatter.string(from: date.endTime!)
 //                if Calendar.current.isDate(date.startTime!, equalTo: current, toGranularity: .minute){
 //                    associate.associateSchedule.remove(at: index)
 //                }
-                let workDay = date.weekDay!
-                return "\(workTime)  \(workDay.rawValue)"
+                
+                return "\(workTime)  \(workDay) \(stime) - \(etime)"
             }
         }
         

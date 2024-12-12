@@ -13,7 +13,9 @@ struct WelcomePage: View {
     @State private var password: String = ""
     @State private var error:String = ""
     @Binding var isUserLoggedIn:Bool
-    @Binding var user:User?
+    @Binding var employer:Employer?
+    @Binding var manager:Manager?
+    @Binding var associate:Associate?
     let vm = WelcomeViewModel()
 //    @State var employer
     
@@ -75,17 +77,54 @@ struct WelcomePage: View {
                         .foregroundColor(.white)
                     
                     Button{
-                        vm.login(for: email, password: password){user in
-                            if let user = user {
-                                        // Update the login state only after the login function succeeds
-                                        DispatchQueue.main.async {
-                                            self.user = user
-                                            isUserLoggedIn = true
-                                        }
-                                    } else {
-                                        error = "Login failed or user not found"
-                                    }
+                        let dispatchGroup = DispatchGroup()
+                        var loginSuccess = false
+                        // Login as Associate
+                        dispatchGroup.enter()
+                        vm.loginAssociate(for: email, password: password) { user in
+                            DispatchQueue.main.async {
+                                if let user = user {
+                                    self.associate = user
+                                    self.isUserLoggedIn = true
+                                    loginSuccess = true
+                                }
+                                dispatchGroup.leave() // Mark this task as complete
+                            }
                         }
+
+                        // Login as Employer
+                        dispatchGroup.enter()
+                        vm.loginEmployer(for: email, password: password) { user in
+                            DispatchQueue.main.async {
+                                if let user = user {
+                                    self.employer = user
+                                    self.isUserLoggedIn = true
+                                    loginSuccess = true
+                                }
+                                dispatchGroup.leave() // Mark this task as complete
+                            }
+                        }
+
+                        // Login as Manager
+                        dispatchGroup.enter()
+                        vm.loginManager(for: email, password: password) { user in
+                            DispatchQueue.main.async {
+                                if let user = user {
+                                    self.manager = user
+                                    self.isUserLoggedIn = true
+                                    loginSuccess = true
+                                }
+                                dispatchGroup.leave() // Mark this task as complete
+                            }
+                        }
+
+                        // Handle completion of all login attempts
+                        dispatchGroup.notify(queue: .main) {
+                            if !loginSuccess {
+                                self.error = "Login failed or user not found"
+                            }
+                        }
+                        
                     }label: {
                         Text("Login")//use button for auth
                         .bold()
@@ -127,7 +166,7 @@ struct WelcomePage: View {
 
 #Preview {
 //    WelcomePage(isUserLoggedIn: .constant(false), user: .constant(Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: <#T##[Schedule]#>, associateAvaliability: <#T##_#>)))
-    WelcomePage(isUserLoggedIn: .constant(false), user: .constant(Manager(email: "mtest@test.com", password: "1234567", managerName: "MTest", managerID: 0, company: Company(companyName: "Company", companyID: 0))))
+    WelcomePage(isUserLoggedIn: .constant(false), employer: .constant(Employer(email: "ETest", password: "1234567", empName: "ETest", empID: 0, company: Company(companyName: "Company", companyID: 0))), manager: .constant(Manager(email: "mtest@test.com", password: "1234567", managerName: "MTest", managerID: 0, company: Company(companyName: "Company", companyID: 0))), associate: .constant(Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)])))
 }
 
 extension View {
