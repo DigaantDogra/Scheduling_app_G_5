@@ -218,6 +218,11 @@ class WelcomeViewModel:ObservableObject{
                                 return
                             }
                             dateFormatter.dateFormat = "dd-MM-yyyy"
+                            guard let workTime = dateFormatter.date(from: snapID) else {
+                                print("Invalid date format")
+                                return
+                            }
+                            dateFormatter.dateFormat = "dd-MM-yyyy"
                             let workTime = dateFormatter.date(from: snapID)
                             
                             print("wher is this???\(workTime!)")
