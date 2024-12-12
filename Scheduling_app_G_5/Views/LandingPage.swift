@@ -14,19 +14,22 @@ struct LandingPage: View {
     @State private var manager:Manager?
     
     var body: some View {
-        if isUserLoggedIn{
-            if employer != nil{
-                EmptyView()
+        ZStack{
+            if isUserLoggedIn{
+                if employer != nil{
+                    EmptyView()
+                }
+                if manager != nil{
+                    EmptyView()
+                }
+                if associate != nil{
+                    AssociatePage(isUserLoggedIn: $isUserLoggedIn,associate: associate!, vm: AssociateViewModel(associate: associate!))
+                }
+            }else{
+                WelcomePage(isUserLoggedIn: $isUserLoggedIn, employer: $employer, manager: $manager, associate: $associate)
             }
-            if manager != nil{
-                EmptyView()
-            }
-            if associate != nil{
-                AssociatePage(associate: associate!, vm: AssociateViewModel(associate: associate!))
-            }
-        }else{
-            WelcomePage(isUserLoggedIn: $isUserLoggedIn, employer: $employer, manager: $manager, associate: $associate)
         }
+        .animation(.easeInOut, value: isUserLoggedIn)
     }
     
 }

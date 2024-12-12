@@ -9,7 +9,9 @@ import SwiftUI
 import MapKit
 
 struct AssociatePage: View {
-    @State private var selectedTab = 0 // State to track the selected tab
+    @State private var showAlert = false
+    @Binding var isUserLoggedIn:Bool
+    @State private var selectedTab = 1 // State to track the selected tab
     @State var associate:Associate
     @State var vm : AssociateViewModel
     var location:CLLocationCoordinate2D{
@@ -18,7 +20,6 @@ struct AssociatePage: View {
 
     var body: some View {
         NavigationStack {
-            
             VStack {
                 // Main content view based on the selected tab
                 if selectedTab == 0 {
@@ -58,7 +59,7 @@ struct AssociatePage: View {
                         
                         GroupBox{
                             HStack {
-                                Text("Earnings Till Now")
+                                Text("Earnings this week")
                                 Spacer()
                                 Button{
                                     
@@ -77,31 +78,54 @@ struct AssociatePage: View {
                         }
                         .padding()
                     }
-                } else if selectedTab == 1 {
+                }
+                else if selectedTab == 1 {
                     //Content for user calendar
                     Text("Calendar Content")
                         .font(.largeTitle)
                         .foregroundColor(.green)
-                } else if selectedTab == 2 {
+                }
+                else if selectedTab == 2 {
                     //Content for user profile
-                    Text("Profile Content")
-                        .font(.largeTitle)
-                        .foregroundColor(.purple)
+                    VStack{
+                        Image(systemName: "person.circle.fill")
+                            .font(.system(size: 55))
+                            .padding(2)
+                        Text("\(associate.associateName)")
+                            .font(.largeTitle)
+                        Text("\(associate.userType)")
+                            .font(.title2)
+                        
+                        GroupBox{
+                            Text("Company Name: \(associate.company.companyName)")
+                            Text("Company ID: \(associate.company.companyID)")
+                        }
+                        .padding()
+                    }
                 }
             }.navigationTitle("Hi \(associate.associateName)")
                 .foregroundColor(.purple)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing){
-                    Image(systemName: "person.circle.fill")
-                                                .font(.system(size: 25))
-                                                .foregroundColor(.purple)
-                                                .padding(.top,7)
-                    
+                    Button{
+                        showAlert = true
+                    }label: {
+                        Image(systemName: "person.fill.badge.minus")
+                                                    .font(.system(size: 25))
+                                                    .foregroundColor(.purple)
+                                                    .padding(.top,7)
+                    }
+                    .alert("Do you want to Log-out?", isPresented: $showAlert) {
+                        Button("Yes", role: .none) {
+                            isUserLoggedIn = false
+                        }
+                        Button("Cancel", role: .cancel) {
+                            showAlert = false
+                        }
+                    } message: {
+                        Text("Do you want to proceed with this action?")
+                    }
                     Spacer()
-                    
-                    Image(systemName: "tray.and.arrow.down.fill")
-                                                .font(.system(size: 25))
-                                                .foregroundColor(.purple)
                 }
             }.frame(maxWidth:. infinity)
             .toolbar {
@@ -152,5 +176,5 @@ struct AssociatePage: View {
 }
 
 #Preview {
-    AssociatePage(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)]), vm: AssociateViewModel(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)])))
+    AssociatePage(isUserLoggedIn: .constant(true), associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)]), vm: AssociateViewModel(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)])))
 }

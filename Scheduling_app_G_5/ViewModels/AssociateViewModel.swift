@@ -27,8 +27,8 @@ struct AssociateViewModel{
                 dateFormatter.dateFormat = "EEEE"
                 let workDay = dateFormatter.string(from: date.workDate)
                 dateFormatter.dateFormat = "hh:mm a"
-                let stime = dateFormatter.string(from: date.startTime!)
-                let etime = dateFormatter.string(from: date.endTime!)
+                let stime = dateFormatter.string(from: date.startTime ?? Date())
+                let etime = dateFormatter.string(from: date.endTime ?? Date())
 //                if Calendar.current.isDate(date.startTime!, equalTo: current, toGranularity: .minute){
 //                    associate.associateSchedule.remove(at: index)
 //                }

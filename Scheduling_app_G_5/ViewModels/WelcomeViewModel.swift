@@ -202,30 +202,23 @@ class WelcomeViewModel:ObservableObject{
                             
                             let endTimeS = data["endTime"] as? String ?? ""
                             let isScheduled = data["isScheduled"] as? Bool ?? false
-                            let startTimeS = data["startTime"] as? String ?? ""
+//                            let startTimeS = data["startTime"] as? String ?? ""
                             let shiftHours = data["shiftHours"] as? Int ?? 0
+                            let startTimeS = "08:00 PM"
                             
                             print("This is stime\(endTimeS) This is eTime:\(startTimeS) This is date:\(snapID)")
                             
                             let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "HHmm"
-                            print("before starttime")
-                            let startTime = dateFormatter.date(from: startTimeS)
-                            print("after starttime")
-                            let endTime = dateFormatter.date(from: endTimeS)
-                            guard let startTime = dateFormatter.date(from: startTimeS),let endTime = dateFormatter.date(from: endTimeS) else {
-                                print("Invalid date format")
-                                return
-                            }
-                            dateFormatter.dateFormat = "dd-MM-yyyy"
-                            guard let workTime = dateFormatter.date(from: snapID) else {
-                                print("Invalid date format")
-                                return
-                            }
                             dateFormatter.dateFormat = "dd-MM-yyyy"
                             let workTime = dateFormatter.date(from: snapID)
                             
-                            print("wher is this???\(workTime!)")
+                            let dateTime = DateFormatter()
+                            dateTime.dateFormat = "HHmm"
+                            let startTime = dateTime.date(from: startTimeS)
+                            let endTime = dateTime.date(from: endTimeS)
+                            
+                            
+//                            print("This is stime: \(startTime) This is eTime: \(endTime) This is date: \(workTime)")
                             
                             associateSchedule.append(Schedule(
                                 workDate: workTime!,
