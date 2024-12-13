@@ -185,5 +185,63 @@ struct AssociatePage: View {
 }
 
 #Preview {
-    AssociatePage(isUserLoggedIn: .constant(true), associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)]), vm: AssociateViewModel(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)])))
+    AssociatePage(
+        isUserLoggedIn: .constant(true),
+        associate: Associate(
+            email: "test@test.com",
+            password: "1234567",
+            associateName: "Test",
+            associateID: 0,
+            company: Company(
+                companyName: "Company",
+                companyID: 0
+            ),
+            associateSchedule: [
+                Schedule(
+                    workDate: Date(),
+                    startTime: Date(),
+                    endTime: Date(),
+                    shiftHours: 8,
+                    isScheduled: true
+                )
+            ],
+            associateAvaliability: [
+                Avaliability(
+                    startTime: Date(),
+                    endTime: Date(),
+                    weekDay: WeekDays.Monday,
+                    isAvaliable: true
+                )
+            ]
+        ),
+        vm: AssociateViewModel(
+            associate: Associate(
+                email: "test@test.com",
+                password: "1234567",
+                associateName: "Test",
+                associateID: 0,
+                company: Company(
+                    companyName: "Company",
+                    companyID: 0
+                ),
+                associateSchedule: [
+                    Schedule(
+                        workDate: Date(),
+                        startTime: Date(),
+                        endTime: Date(),
+                        shiftHours: 8,
+                        isScheduled: true
+                    )
+                ],
+                associateAvaliability: [
+                    Avaliability(
+                        startTime: Date(),
+                        endTime: Date(),
+                        weekDay: WeekDays.Monday,
+                        isAvaliable: true
+                    )
+                ]
+            )
+        )
+    )
 }
