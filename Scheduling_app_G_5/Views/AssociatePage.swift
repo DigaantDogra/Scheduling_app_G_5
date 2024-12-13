@@ -9,6 +9,10 @@ import SwiftUI
 import MapKit
 
 struct AssociatePage: View {
+    @State private var calendarColor = Color.indigo
+    @State private var calendarDate = Date.now
+    
+    
     @State private var showAlert = false
     @Binding var isUserLoggedIn:Bool
     @State private var selectedTab = 0 // State to track the selected tab
@@ -80,10 +84,15 @@ struct AssociatePage: View {
                     }
                 }
                 else if selectedTab == 1 {
-                    //Content for user calendar
+                    //Calendar TAB
                     Text("Calendar Content")
                         .font(.largeTitle)
-                        .foregroundColor(.green)
+                        .foregroundColor(.indigo)
+                    ReusableCalendarView(
+                        selectedColor: $calendarColor,
+                        selectedDate: $calendarDate,
+                        daysOfWeek: Date.capitalizedFirstLettersOfWeekdays
+                    )
                 }
                 else if selectedTab == 2 {
                     //Content for user profile
@@ -104,7 +113,7 @@ struct AssociatePage: View {
                     }
                 }
             }.navigationTitle("Hi \(associate.associateName)")
-                .foregroundColor(.purple)
+                .foregroundColor(.black)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing){
                     Button{
@@ -176,5 +185,63 @@ struct AssociatePage: View {
 }
 
 #Preview {
-    AssociatePage(isUserLoggedIn: .constant(true), associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)]), vm: AssociateViewModel(associate: Associate(email: "test@test.com", password: "1234567", associateName: "Test", associateID: 0, company: Company(companyName: "Company", companyID: 0), associateSchedule: [Schedule(workDate: Date(), startTime: Date(), endTime: Date(), shiftHours: 8, isScheduled: true)], associateAvaliability: [Avaliability(startTime: Date(), endTime: Date(), weekDay: WeekDays.Monday, isAvaliable: true)])))
+    AssociatePage(
+        isUserLoggedIn: .constant(true),
+        associate: Associate(
+            email: "test@test.com",
+            password: "1234567",
+            associateName: "Test",
+            associateID: 0,
+            company: Company(
+                companyName: "Company",
+                companyID: 0
+            ),
+            associateSchedule: [
+                Schedule(
+                    workDate: Date(),
+                    startTime: Date(),
+                    endTime: Date(),
+                    shiftHours: 8,
+                    isScheduled: true
+                )
+            ],
+            associateAvaliability: [
+                Avaliability(
+                    startTime: Date(),
+                    endTime: Date(),
+                    weekDay: WeekDays.Monday,
+                    isAvaliable: true
+                )
+            ]
+        ),
+        vm: AssociateViewModel(
+            associate: Associate(
+                email: "test@test.com",
+                password: "1234567",
+                associateName: "Test",
+                associateID: 0,
+                company: Company(
+                    companyName: "Company",
+                    companyID: 0
+                ),
+                associateSchedule: [
+                    Schedule(
+                        workDate: Date(),
+                        startTime: Date(),
+                        endTime: Date(),
+                        shiftHours: 8,
+                        isScheduled: true
+                    )
+                ],
+                associateAvaliability: [
+                    Avaliability(
+                        startTime: Date(),
+                        endTime: Date(),
+                        weekDay: WeekDays.Monday,
+                        isAvaliable: true
+                    )
+                ]
+            )
+        )
+    )
 }
