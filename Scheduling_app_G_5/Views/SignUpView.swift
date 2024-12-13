@@ -8,12 +8,15 @@
     import SwiftUI
 
     struct SignUpView: View {
+        @Environment(\.presentationMode) var presentationMode
+        @State private var name: String = ""
+        @State private var companyName: String = ""
         @State private var email: String = ""
         @State private var password: String = ""
         @State private var confirmPassword: String = ""
-        @State private var selectedRole: UserRole? = nil
+        @State private var selectedRole: UserType? = nil
         @State private var accountCreated: Bool = false // New state to track if signup is complete
-        @State private var navigateToContentView = false // Bind to control navigation
+//        @State private var navigateToContentView = false // Bind to control navigation
 
 
         var body: some View {
@@ -25,13 +28,13 @@
                             .font(.system(size: 25, weight: .bold, design: .rounded))
                             .foregroundColor(.green)
                             .padding(.bottom, 40)
-                        
-                        NavigationLink(destination: LandingPage(), isActive: $navigateToContentView) {
-                            EmptyView() // Invisible, just controls navigation
-                        }
+                    
+//                        NavigationLink(destination: LandingPage(), isActive: $navigateToContentView) {
+//                            EmptyView() // Invisible, just controls navigation
+//                        }
                         
                         BasicButton(text: "Login") {
-                            navigateToContentView = true // Trigger navigation when tapped
+                            presentationMode.wrappedValue.dismiss() // Trigger navigation when tapped
                         }
 
                     }
@@ -43,36 +46,66 @@
                             .padding(.bottom, 40)
                         
                         // RoleButtons
-                        RoleButton(role: .employer, action: { selectedRole = .employer })
-                        RoleButton(role: .manager, action: { selectedRole = .manager })
-                        RoleButton(role: .associate, action: { selectedRole = .associate })
+                        RoleButton(role: .employer, action: { selectedRole = .Employer })
+                        RoleButton(role: .manager, action: { selectedRole = .Manager })
+                        RoleButton(role: .associate, action: { selectedRole = .Associate })
                         
                         Spacer()
                     } else {
                         // Account Creation (Second Thing User will see after picking role)
                         // Create account title
-                        Text("Create a \(selectedRole!.rawValue) Account")
+                        Text("Create a \(selectedRole!) Account")
                             .font(.system(size: 25, weight: .bold, design: .rounded))
                             .foregroundColor(.blue)
                             .padding(.bottom, 40)
                         
                         // Back to Role Chooser
                         HStack {
-                            Button("Change Role") {
+                            Button {
                                 selectedRole = nil
+                            }label: {
+                                Text("Change Role")
+                                    .frame(width: 100, height: 25, alignment: .center)
+                                    .font(.system(size: 12, weight: .regular, design: .rounded))
+                                    .foregroundColor(.white)
+                                    .background(Color.purple)
+                                    .shadow(color: .purple.opacity(0.5), radius: 5, x: 0, y: 5)
+                                    .clipShape(.rect(cornerRadius: 5))
                             }
-                            .frame(width: 100, height: 25, alignment: .center)
-                            .font(.system(size: 12, weight: .regular, design: .rounded))
-                            .cornerRadius(12)
-                            .foregroundColor(.white)
-                            .background(Color.purple)
-                            .shadow(color: .purple.opacity(0.5), radius: 5, x: 0, y: 5)
                             
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
                         
                         // Email TextField
+                        TextField("", text: $name)
+                            .foregroundStyle(.black)
+                            .textFieldStyle(.plain)
+                            .placeholder(when: name.isEmpty) {
+                                Text("Name")
+                                    .foregroundColor(.black)
+                                    .bold()
+                            }
+                        
+                        // UI Splitter
+                        Rectangle()
+                            .frame(width: 350, height: 1)
+                            .foregroundColor(.black)
+                        
+                        TextField("", text: $companyName)
+                            .foregroundStyle(.black)
+                            .textFieldStyle(.plain)
+                            .placeholder(when: companyName.isEmpty) {
+                                Text("Company Name")
+                                    .foregroundColor(.black)
+                                    .bold()
+                            }
+                        
+                        // UI Splitter
+                        Rectangle()
+                            .frame(width: 350, height: 1)
+                            .foregroundColor(.black)
+                        
                         TextField("", text: $email)
                             .foregroundStyle(.black)
                             .textFieldStyle(.plain)

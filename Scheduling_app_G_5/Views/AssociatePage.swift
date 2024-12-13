@@ -11,7 +11,7 @@ import MapKit
 struct AssociatePage: View {
     @State private var showAlert = false
     @Binding var isUserLoggedIn:Bool
-    @State private var selectedTab = 1 // State to track the selected tab
+    @State private var selectedTab = 0 // State to track the selected tab
     @State var associate:Associate
     @State var vm : AssociateViewModel
     var location:CLLocationCoordinate2D{
